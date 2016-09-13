@@ -1,5 +1,9 @@
+JAVA = java
+RUNFILE = BallSimple
+
 JCC = javac
 JFLAGS = -g
+
 default: BounceFrame.class BallPanel.class BallSimple.class
 
 BounceFrame.class: BounceFrame.java
@@ -13,3 +17,6 @@ BallSimple.class: BallSimple.java
 
 clean:
 	$(RM) *.class
+
+run:
+	$(JAVA) $(RUNFILE)
