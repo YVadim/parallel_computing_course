@@ -25,32 +25,30 @@ public class BallPanel extends JPanel {
 	}
 
 	public void move() {
-		if ((dx != 0) || (dy != 0)) {
-			x += dx;
-			y += dy;
-			if (x < 0) {
-				x = 0;
-				dx = -dx;
-				System.out.println("Direction_change: " + (change_direction ++));
-			}
-			if (x + XSIZE >= this.getWidth()) {
-				x = this.getWidth() - XSIZE;
-				dx = -dx;
-				System.out.println("Direction_change: " + (change_direction ++));
-			}
-			if (y < 0) {
-				y = 0;
-				dy = -dy;
-				System.out.println("Direction_change: " + (change_direction ++));
-			}
-			if (y + YSIZE >= this.getHeight()) {
-				y = this.getHeight() - YSIZE;
-				dy = -dy;
-				System.out.println("Direction_change: " + (change_direction ++));
-			}
-
-			this.repaint();
+		x += dx;
+		y += dy;
+		if (x < 0) {
+			x = 0;
+			dx = -dx;
+			System.out.println("Direction_change: " + (change_direction ++));
 		}
+		if (x + XSIZE >= this.getWidth()) {
+			x = this.getWidth() - XSIZE;
+			dx = -dx;
+			System.out.println("Direction_change: " + (change_direction ++));
+		}
+		if (y < 0) {
+			y = 0;
+			dy = -dy;
+			System.out.println("Direction_change: " + (change_direction ++));
+		}
+		if (y + YSIZE >= this.getHeight()) {
+			y = this.getHeight() - YSIZE;
+			dy = -dy;
+			System.out.println("Direction_change: " + (change_direction ++));
+		}
+
+		this.repaint();
 	}
 
 	@Override
