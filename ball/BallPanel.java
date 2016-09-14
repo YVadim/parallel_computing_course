@@ -12,6 +12,7 @@ public class BallPanel extends JPanel {
 	private float dx = 2;
 	private float dy = 2;
 	private double slowing_coeff = 0.001;
+	private boolean change_dir_flag_sim = false;
 	private int change_direction = 0;
 
 	public BallPanel() {
@@ -42,8 +43,22 @@ public class BallPanel extends JPanel {
 		}
 	}
 
+	public void changed_direction_msg() {
+		if (change_dir_flag_sim) {
+			System.out.println("Direction: " + change_direction);
+		}
+	}
+
+	public void increment_direction() {
+		if (!change_dir_flag_sim) {
+			change_direction ++;
+			change_dir_flag_sim = true;
+		}
+	}
+
 	public void move() {
 		if (dx != 0) {
+			change_dir_flag_sim = false;
 			x += dx;
 			y += dy;
 			slow();
@@ -51,23 +66,25 @@ public class BallPanel extends JPanel {
 			if (x < 0) {
 				x = 0;
 				dx = -dx;
-				System.out.println("Direction_change: " + (change_direction ++));
+				increment_direction();
 			}
 			if (x + XSIZE >= this.getWidth()) {
 				x = this.getWidth() - XSIZE;
 				dx = -dx;
-				System.out.println("Direction_change: " + (change_direction ++));
+				increment_direction();
 			}
 			if (y < 0) {
 				y = 0;
 				dy = -dy;
-				System.out.println("Direction_change: " + (change_direction ++));
+				increment_direction();
 			}
 			if (y + YSIZE >= this.getHeight()) {
 				y = this.getHeight() - YSIZE;
 				dy = -dy;
-				System.out.println("Direction_change: " + (change_direction ++));
+				increment_direction();
 			}
+
+			changed_direction_msg();
 
 			this.repaint();
 		}
