@@ -11,6 +11,7 @@ public class BallPanel extends JPanel {
 	private float y = 0;
 	private float dx = 2;
 	private float dy = 2;
+	private double slowing_coeff = 0.001;
 	private int change_direction = 0;
 
 	public BallPanel() {
@@ -24,31 +25,52 @@ public class BallPanel extends JPanel {
 		g2.fill(new Ellipse2D.Double(x, y, XSIZE, YSIZE));
 	}
 
-	public void move() {
-		x += dx;
-		y += dy;
-		if (x < 0) {
-			x = 0;
-			dx = -dx;
-			System.out.println("Direction_change: " + (change_direction ++));
+	public void slow () {
+
+		if (dx < 0) {
+			dx += slowing_coeff;
 		}
-		if (x + XSIZE >= this.getWidth()) {
-			x = this.getWidth() - XSIZE;
-			dx = -dx;
-			System.out.println("Direction_change: " + (change_direction ++));
-		}
-		if (y < 0) {
-			y = 0;
-			dy = -dy;
-			System.out.println("Direction_change: " + (change_direction ++));
-		}
-		if (y + YSIZE >= this.getHeight()) {
-			y = this.getHeight() - YSIZE;
-			dy = -dy;
-			System.out.println("Direction_change: " + (change_direction ++));
+		else {
+			dx -= slowing_coeff;
 		}
 
-		this.repaint();
+		if (dy < 0) {
+			dy += slowing_coeff;
+		}
+		else {
+			dy -= slowing_coeff;
+		}
+	}
+
+	public void move() {
+		if (dx != 0) {
+			x += dx;
+			y += dy;
+			slow();
+			// System.out.println("DX" + (dx));
+			if (x < 0) {
+				x = 0;
+				dx = -dx;
+				System.out.println("Direction_change: " + (change_direction ++));
+			}
+			if (x + XSIZE >= this.getWidth()) {
+				x = this.getWidth() - XSIZE;
+				dx = -dx;
+				System.out.println("Direction_change: " + (change_direction ++));
+			}
+			if (y < 0) {
+				y = 0;
+				dy = -dy;
+				System.out.println("Direction_change: " + (change_direction ++));
+			}
+			if (y + YSIZE >= this.getHeight()) {
+				y = this.getHeight() - YSIZE;
+				dy = -dy;
+				System.out.println("Direction_change: " + (change_direction ++));
+			}
+
+			this.repaint();
+		}
 	}
 
 	@Override
